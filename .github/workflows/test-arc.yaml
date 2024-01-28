@@ -3,8 +3,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  Explore-GitHub-Actions:
+  job1:
     # You need to use the INSTALLATION_NAME
     runs-on: arc-runner-set
     steps:
     - run: echo "🎉 This job uses runner scale set runners!"
+  job2:
+    # You need to use the INSTALLATION_NAME
+    runs-on: arc-runner
+    steps:
+    - run: echo "🎉 This job uses runner pods!"
+  job3:
+    # You need to use the INSTALLATION_NAME
+    runs-on: arc-runner
+    steps:
+    - run: echo "🎉 This job uses runner pods!"
