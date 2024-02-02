@@ -41,7 +41,7 @@ helm install arc \
 
 echo -c "Configuring a runner scale set"
 
-INSTALLATION_NAME="arc-runner-set"
+INSTALLATION_NAME="returngis-arc-runner-set"
 NAMESPACE="arc-runners"
 GITHUB_CONFIG_URL="https://github.com/returngis"
 
