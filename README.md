@@ -18,7 +18,7 @@ GITHUB_APP_INSTALLATION_ID=<YOUR_GITHUB_APP_INSTALLATION_ID>
 
 Last thing is generate a private key for your GitHub App and save it as `private-key.pem` in .devcontainer. And you are ready to go! The only thing missing is to Reopen in Container:
 
-
+<img src="images/Actions-runner-controller reopen in container.png" />
 
 If you speak/understand Spanish 🇪🇸 you can read the detail here: [Cómo desplegar y escalar GitHub self-hosted runners en Kubernetes](https://www.returngis.net/2024/02/como-desplegar-y-escalar-github-self-hosted-runners-en-kubernetes/)
 
