@@ -86,4 +86,4 @@ helm install "${INSTALLATION_NAME}" \
     oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
 
 kubectl get pods -n arc-systems
-kubectl get pods -n arc-runners
+kubectl get pods -n arc-runners --watch

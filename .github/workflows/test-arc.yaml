@@ -7,14 +7,19 @@ jobs:
     # You need to use the INSTALLATION_NAME
     runs-on: returngis-arc-runner-set
     steps:
-    - run: echo "🎉 This job uses runner scale set runners!"
+    - run: | 
+        echo "🎉 This job uses runner scale set runners!"
   job2:
     # You need to use the INSTALLATION_NAME
     runs-on: returngis-arc-runner-set
     steps:
-    - run: echo "🎉 This job uses runner pods!"
+    - run: | 
+        echo "🎉 This job uses runner pods!"
+        echo current runner pod: ${{ runner.name }}
   job3:
     # You need to use the INSTALLATION_NAME
     runs-on: returngis-arc-runner-set
     steps:
-    - run: echo "🎉 This job uses runner pods!"
+    - run: |  
+        echo "🎉 This job uses runner pods!"
+        echo current runner pod: ${{ runner.name }}
