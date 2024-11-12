@@ -33,17 +33,33 @@ fi
 
 echo -e "Installing Actions Runner Controller 🐈‍⬛"
 
+echo -e "First we need to create a secret with the permissions to download the Docker image from the GitHub Container Registry"
+
 NAMESPACE="arc-systems"
+
+kubectl create ns "${NAMESPACE}"
+
+kubectl create secret docker-registry ghcr \
+    --docker-server=ghcr.io \
+    --docker-username=$GITHUB_USERNAME \
+    --docker-password=$GITHUB_TOKEN \
+    --namespace=$NAMESPACE
+
+
 helm install arc \
     --namespace "${NAMESPACE}" \
     --create-namespace \
+    --values .devcontainer/runner-controller-values.yaml \
     oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+
+
+kubectl get pods -n arc-systems
 
 echo -c "Configuring a runner scale set"
 
-INSTALLATION_NAME="returngis-arc-runner-set"
+INSTALLATION_NAME="$ORG_NAME-arc-runner-set"
 NAMESPACE="arc-runners"
-GITHUB_CONFIG_URL="https://github.com/returngis"
+GITHUB_CONFIG_URL="https://github.com/$ORG_NAME"
 
 # Load private-key.pem into GITHUB_PRIVATE_KEY
 GITHUB_PRIVATE_KEY=$(cat .devcontainer/private-key.pem)
@@ -55,11 +71,18 @@ kubectl create secret generic pre-defined-secret \
   --from-literal=github_app_installation_id="${GITHUB_APP_INSTALLATION_ID}" \
   --from-literal=github_app_private_key="${GITHUB_PRIVATE_KEY}"
 
+kubectl create secret docker-registry ghcr \
+    --docker-server=ghcr.io \
+    --docker-username=$GITHUB_USERNAME \
+    --docker-password=$GITHUB_TOKEN \
+    --namespace=$NAMESPACE
+
 helm install "${INSTALLATION_NAME}" \
     --namespace "${NAMESPACE}" \
     --create-namespace \
     --set githubConfigUrl="${GITHUB_CONFIG_URL}" \
     --set githubConfigSecret=pre-defined-secret \
+    --values .devcontainer/runner-controller-values.yaml \
     oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
 
 kubectl get pods -n arc-systems

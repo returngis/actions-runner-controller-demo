@@ -1,3 +1,4 @@
 .env
 .devcontainer/private-key.pem
 .DS_Store
+*.pem
